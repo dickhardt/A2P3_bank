@@ -14,6 +14,6 @@ iPhone Bank Application for A2P3
 
 [A2P3_agent](https://github.com/dickhardt/A2P3_agent) POC mobile agent (PhoneGap)
 
-[node-A2P3](https://github.com/dickhardt/node-A2P3) node.js npm module for A2P3 applications
+[node-a2p3](https://github.com/dickhardt/node-a2p3) node.js npm module for A2P3 applications
 
-[sample-node-A2P3](https://github.com/dickhardt/sample-node-A2P3) sample A2P3 application using node-a2p3
+[sample-node-a2p3](https://github.com/dickhardt/sample-node-a2p3) sample A2P3 application using node-a2p3
