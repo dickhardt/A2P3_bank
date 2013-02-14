@@ -24,8 +24,19 @@
 	        <div id="messageBar" class="ui-bar ui-bar-e"></div>
 	      	<div data-role="content" class="fullarea">
                 <a class="homeButton" id="logon" data-role="button" data-corners="false">Login</a>
-                <a class="homeButton" href="#open" data-role="button" data-corners="false">Open Account Account</a>        
+                <a class="homeButton" href="#open" data-role="button" data-corners="false">Open Account</a>        
 	      	</div>
+    </script>
+   <!-- Account View Template -->
+   <script type="text/template" id="account">
+        <div data-role="header" data-theme="a">
+     		<a href="#" data-role="button" data-inline="true" data-icon="home" data-iconpos="notext">Home</a>		
+            <h1>Account</h1>
+        </div>
+        <div id="messageBar" class="ui-bar ui-bar-e"></div>
+      	<div data-role="content" class="fullarea">
+           
+      	</div>
     </script>
    
     <!-- Settings Page Template -->
@@ -103,8 +114,10 @@
     <script src="lib/uri/parseuri.js"></script>
     <script src="lib/fastclick/fastclick.js"></script>
     <script src="js/models/Settings.js"></script>
+    <script src="js/models/Account.js"></script>
     <script src="js/views/InfoView.js"></script>
     <script src="js/views/HomeView.js"></script>
+    <script src="js/views/AccountView.js"></script>
     <script src="js/views/SettingsView.js"></script>
 	<script src="js/routers/AppRouter.js"></script>
 	

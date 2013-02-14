@@ -12,6 +12,7 @@
             "home" : "home",
             "info" : "info",
 	        "settings" : "settings",
+	        "open" : "open",
 	    },
 	
 	    initialize:function () {
@@ -45,6 +46,14 @@
 			
 	        this.changePage(new window.Bank.SettingsView({model: settings}));
 	    },
+
+		/*
+		 * Open Account page
+		 */
+		open: function () {
+			var account = new window.Bank.Account();
+			this.changePage(new window.Bank.AccountView({model: account}));
+		},
 
 		/*
 		 * Common function to load page
