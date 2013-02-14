@@ -51,7 +51,7 @@
 		 * Open Account page
 		 */
 		open: function () {
-			var account = new window.Bank.Account();
+			var account = new window.Bank.Account({"State": "New"});
 			this.changePage(new window.Bank.AccountView({model: account}));
 		},
 

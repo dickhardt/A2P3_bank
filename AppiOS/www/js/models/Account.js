@@ -21,12 +21,17 @@
 			"AgentRequest": '',
 			// A message to show the user of our progres
 			"StatusMessage": '',
+			// State of the account
+			"State": ''
 		},
 
 		urlRoot: window.Bank.Context.BaseUrl + '/api/Account',
 		
 		initialize: function() {
 			
+			if (this.get("State") == "New") {
+				this.openAccount();
+			}
 		},
 		
 		/*
