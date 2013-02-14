@@ -1,0 +1,65 @@
+/* Override jquery mobile defautls for special cases on a per element basis */
+.passcode {
+	width: 110px !important;
+	font-weight: bolder;
+	padding: 10px !important;
+	margin: 0 auto !important;
+	text-align: left;
+	letter-spacing: 10px;
+}
+
+.keypad {
+	margin: 1px !important;
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+.keypadLetters {
+	font-size: 10px;
+}
+
+.keypadBox {
+	width: 300px; 
+}
+
+.passcodeBoxes {
+	width: 240px; 
+}
+
+.center {
+	margin: 0 auto;
+}
+
+/* Override jquery mobile style to allow breaking words to wrap */
+.ui-bar {
+	word-wrap: break-word;
+}
+
+/* Stop the title from being truncated */
+.ui-title {
+	margin-right: auto !important;
+	margin-left: auto !important;
+}
+
+.homeButton .ui-btn-inner {
+	
+	padding-top: 48px;
+	padding-bottom: 48px;
+	font-size: 125%;
+}
+
+.footerButton .ui-btn-inner {
+	font-size: 16px;
+}
+
+.dropdown {
+	text-align: left;
+}
+
+.authzList {
+	overflow: auto !important;
+	white-space: normal !important;
+}
+
+.ui-content {
+	padding-top: 15px;
+}
