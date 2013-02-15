@@ -36,7 +36,33 @@
         <div id="messageBar" class="ui-bar ui-bar-e"></div>
         <div id="loadingBar" class="ui-bar ui-bar-c"></div>
       	<div data-role="content" class="fullarea">
-           
+           <div id="termsOfUseContainer" data-role="content">
+           		<%= Name %><br>
+           		<%= DateOfBirth %><br>
+           		<%= City %>, <%= Province %> <%= Postal %><br>
+           		SIN: <%= SocialInsuranceNumber %><br>
+           		<%= Email %><br>
+           		
+           		<ol>
+           			<li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</li>
+           			<li>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</li>
+           		</ol>
+       		
+      			<div class="ui-grid-a">
+	      			<div class="ui-block-a">
+       					<a id="cancel" data-role="button" data-inline="true">Cancel</a>
+       				</div>
+       				<div class="ui-block-b" style="text-align: right">
+       					<a id="agree" data-role="button" data-inline="true" data-icon="check">I Agree</a>
+       				</div>
+       			</div>			
+           </div>
+           <div id="welcomeContainer" data-role="content">
+           		<h1>Welcome <%= Name %>!</h1>
+           		<p>
+           			Nunc metus massa, blandit id venenatis eu, suscipit eget orci. Curabitur ac porttitor magna. Morbi luctus quam id dui vestibulum gravida. Nullam vitae lorem dui. Suspendisse ligula justo, volutpat vel suscipit in, auctor nec metus. In non odio est. Fusce dolor massa, dapibus pretium semper ac, vulputate eu lectus. Donec vel pellentesque metus.
+           		</p>
+           </div>
       	</div>
     </script>
    

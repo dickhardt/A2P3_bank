@@ -19,10 +19,29 @@
 			"Abort": '',
 			// The agent request from the bank API
 			"AgentRequest": '',
+			// The raw incoming URL 
+			"ResponseSourceUrl": '',
 			// A message to show the user of our progres
 			"StatusMessage": '',
-			// State of the account
-			"State": ''
+			// State of the account, 
+			// New for request process
+			// Login process
+			// Consent for the 2nd step in the request process
+			// Open for agreed to account
+			// Closed 
+			"State": '',
+			
+			// User data section
+			"Name": '',
+			"AddressLine1": '',
+			"AddressLine2": '',
+			"City": '',
+			"Province": '',
+			"Postal": '',
+			"DateOfBirth": '',
+			"SocialInsuranceNumber": '',
+			"Email": '',
+			
 		},
 
 		urlRoot: window.Bank.Context.BaseUrl + '/api/Account',
@@ -32,6 +51,51 @@
 			if (this.get("State") == "New") {
 				this.openAccount();
 			}
+			else if (this.get("State") == "Login") {
+				this.logon();
+			}
+			else {
+				this.processResponse();
+			}
+		},
+		
+		/*
+		 * Processes response URL and determines model state etc
+		 */
+		processResponse: function () {
+			var sourceUrl = this.get("ResponseSourceUrl");
+			
+		},
+		/*
+		 * When a user agrees
+		 */
+		agree: function () {
+			this.set("State", "Open");
+		},
+		
+		/*
+		 * User should already have an account and wishes to logon
+		 */
+		logon: function () {
+			this.set("StatusMessage", "Calling Bank to get agent request...");
+			
+			// Get base URL
+			var url = settings.getBankURL();
+			
+			// Add on endpoint
+			url += "/login/app";
+			
+			// Call Bank
+			/*
+			$.ajax({url: url, 
+				type: "POST",
+				dataType: "json",
+				context: this,
+				error: function(url) {
+					return function(jqXHR, textStatus, errorThrown) {
+						this.getAgentRequestForNewAccountError(jqXHR, textStatus, errorThrown, url)
+					}}(url),
+				success: this.getAgentRequestForNewAccountCallback});*/
 		},
 		
 		/*
@@ -46,11 +110,11 @@
 			var url = settings.getBankURL();
 			
 			// Add on endpoint
-			url += "/new/direct?json=true";
+			url += "/new/app";
 			
 			// Call Bank
 			$.ajax({url: url, 
-				type: "GET",
+				type: "POST",
 				dataType: "json",
 				context: this,
 				error: function(url) {
@@ -103,12 +167,9 @@
 					"Abort": true});
 			}
 			
-			// Make up return URL
-			var returnUrl = "bank.a2p3.net://logon";
-			
 			// Make up agent URL - TODO: figure out how to manage state or if even required
 			// for the PoC allow unsocilated logons
-			var agentUrl = "a2p3.net://token?request=" + agentRequest + "&returnUrl=" + encodeURI(returnUrl);
+			var agentUrl = "a2p3.net://token?request=" + agentRequest;
 			
 			console.log("agent url = " + agentUrl);
 			
