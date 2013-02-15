@@ -63,6 +63,8 @@
 		 * Processes response URL and determines model state etc
 		 */
 		processResponse: function () {
+			this.set("StatusMessage", "Calling Bank to with Agent response...");
+			
 			// Get the request portion
 			var parsedUrl = parseUri(this.get("ResponseSourceUrl"));
 			
@@ -114,11 +116,24 @@
 			console.log("bank data = " + JSON.stringify(data));
 			if (textStatus == "success") {
 				if (data.error) {
-					this.set({"ErrorMessage": "Providing bank with IX Token failed with: " + data.error.message,
-						"Abort": true});
+					if (data.error.code == "UNKNOWN_USER") {
+						// Unknown user means we are openning an account
+						this.set("State", "Consent");
+						
+						// get profile
+						this.getProfile();
+					}
+					else {
+						this.set({"ErrorMessage": "Providing bank with IX Token failed with: " + data.error.message,
+							"Abort": true});
+					}
 				}
-				else {
+				else if (data.result.success) {
+					// Success means logon
+					this.set("State", "Open");
 					
+					// get profile
+					this.getProfile();
 				}
 			}
 			else {
@@ -127,6 +142,56 @@
 			}
 		},
 
+		/*
+		 * Gets user profile for currently logged on user (has cookie set)
+		 */
+		getProfile: function () {
+			this.set("StatusMessage", "Getting user profile from Bank...");
+			
+			// make up Bank URL
+			var url = settings.getBankURL();
+			url += "/profile";
+			
+			// Call Bank
+			$.ajax({url: url, 
+				type: "GET",
+				dataType: "json",
+				context: this,
+				error: function(url) {
+					return function(jqXHR, textStatus, errorThrown) {
+						this.getProfileError(jqXHR, textStatus, errorThrown, url)
+					}}(url),
+				success: this.getProfileCallback});
+		},
+		
+		/*
+		 * When bad things happening getting profile
+		 */
+		getProfileError: function (jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The bank is unavailable at: " + url,
+				"Abort": true});	
+		},
+		
+		/*
+		 * Bank responded with a profile, populate our model
+		 */
+		getProfileCallback: function (data, textStatus, jqXHR) {
+			console.log("bank data = " + JSON.stringify(data));
+
+			
+			if (textStatus == "success") {
+				if (data.result) {
+					
+				}
+			}
+			else {
+				this.set({"ErrorMessage": "Getting profile frmo Bank failed with: " + textStatus,
+					"Abort": true});
+			}
+			
+			// Done
+			this.set("StatusMessage", "");
+		},
 		
 		/*
 		 * When a user agrees
