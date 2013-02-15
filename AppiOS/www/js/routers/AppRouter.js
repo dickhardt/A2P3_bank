@@ -89,16 +89,11 @@
 			var parsedUrl = parseUri(url);
 			var path = parsedUrl.relative.replace("//", "");
 		
-			if (path == "login") {
-				// Make up new account object
-				var account = new window.Bank.Account({"ResponseSourceUrl": url})
-				
-				// Go to account view
-				this.changePage(new window.Bank.AccountView({model: account}));
-			}
-			else {
-				UnhandledError("Unable to determine what to do with the incoming URL: " + url);
-			}
+			// Make up new account object
+			var account = new window.Bank.Account({"ResponseSourceUrl": url})
+			
+			// Go to account view
+			this.changePage(new window.Bank.AccountView({model: account}));
 		},
 	
 	});

@@ -63,9 +63,71 @@
 		 * Processes response URL and determines model state etc
 		 */
 		processResponse: function () {
-			var sourceUrl = this.get("ResponseSourceUrl");
+			// Get the request portion
+			var parsedUrl = parseUri(this.get("ResponseSourceUrl"));
 			
+			var token = parsedUrl.queryKey.token;
+			if (!token) {
+				this.set("ErrorMessage", "Missing token parameter in response url.");
+				return;
+			}
+			var request = parsedUrl.queryKey.request;
+			if (!request) {
+				this.set("ErrorMessage", "Missing request parameter in response url.");
+				return;
+			}
+			// they are other parts but we don't need them for the bank app
+			
+			// make up Bank URL
+			var url = settings.getBankURL();
+			url += "/response/app";
+			
+			// Assemble data
+			var data = {"request": request, "token": token};
+			
+			// Call Bank
+			$.ajax({url: url, 
+				type: "POST",
+				dataType: "json",
+				contentType: "application/json;", 
+				data: JSON.stringify(data),
+				context: this,
+				error: function(url) {
+					return function(jqXHR, textStatus, errorThrown) {
+						this.processResponseError(jqXHR, textStatus, errorThrown, url)
+					}}(url),
+				success: this.processResponseCallback});
 		},
+		
+		/*
+		 * When bad things happen on processing the response
+		 */
+		processResponseError: function (jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The bank is unavailable at: " + url,
+				"Abort": true});	
+		},
+		
+		/*
+		 * The bank responded from our call with the IX token
+		 */
+		processResponseCallback: function (data, textStatus, jqXHR) {
+			console.log("bank data = " + JSON.stringify(data));
+			if (textStatus == "success") {
+				if (data.error) {
+					this.set({"ErrorMessage": "Providing bank with IX Token failed with: " + data.error.message,
+						"Abort": true});
+				}
+				else {
+					
+				}
+			}
+			else {
+				this.set({"ErrorMessage": "Providing bank with IX Token failed with: " + textStatus,
+					"Abort": true});
+			}
+		},
+
+		
 		/*
 		 * When a user agrees
 		 */
