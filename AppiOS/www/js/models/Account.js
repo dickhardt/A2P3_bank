@@ -41,6 +41,7 @@
 			"DateOfBirth": '',
 			"SocialInsuranceNumber": '',
 			"Email": '',
+			"DI": '',
 			
 		},
 
@@ -181,6 +182,18 @@
 			
 			if (textStatus == "success") {
 				if (data.result) {
+					
+					// Pump the result into our model
+					this.set({"name": searchObject(data.result, "name"),
+						"DateOfBirth": searchObject(data.result, "dob"),
+						"AddressLine1": searchObject(data.result, "address1"),
+						"AddressLine2": searchObject(data.result, "address2"),
+						"City": searchObject(data.result, "city"),
+						"Province": searchObject(data.result, "province"),
+						"Postal": searchObject(data.result, "postal"),
+						"Email": searchObject(data.result, "email"),
+						"SocialInsuranceNumber": searchObject(data.result, "si"),
+						"DI": searchObject(data.result, "di")});
 					
 				}
 			}

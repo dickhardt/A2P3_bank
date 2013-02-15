@@ -41,4 +41,21 @@ function UnhandledError (message) {
 	window.Agent.Notify(message);
 }
 
+/*
+ * A recursive function to search the javascript object/array looking for the first
+ * instance of the provided name
+ */
+function searchObject(obj, name)
+{
+	
+    var k;
+    if (_.isObject(obj) || _.isArray(obj)) {
+    	if (obj.hasOwnProperty(name)) {
+    		return obj[name];
+    	}   
+        for (k in obj) {
+        	return searchObject(obj[k], name);
+        }
+    } 
+};
 
