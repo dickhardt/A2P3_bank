@@ -210,8 +210,49 @@
 		 * When a user agrees
 		 */
 		agree: function () {
-			this.set("State", "Open");
+			this.set("StatusMessage", "Calling Bank to create new account");
+			
+			// Get base URL
+			var url = settings.getBankURL();
+			
+			// Add on endpoint
+			url += "/agree/tos";
+			
+			// Call Bank
+			$.ajax({url: url, 
+				type: "POST",
+				dataType: "json",
+				context: this,
+				error: function(url) {
+					return function(jqXHR, textStatus, errorThrown) {
+						this.agreeError(jqXHR, textStatus, errorThrown, url)
+					}}(url),
+				success: this.agreeCallback});
 		},
+		
+		/*
+		 * When bad thing happen when agreeing
+		 */
+		agreeError: function (jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The bank is unavailable at: " + url,
+				"Abort": true});	
+		},
+		
+		/*
+		 * Bank responded to our agreement
+		 */
+		agreeCallback: function (data, textStatus, jqXHR) {
+			console.log("bank data = " + JSON.stringify(data));
+			if (textStatus == "success") {
+				// that's enough
+				this.set("State", "Open");
+			}
+			else {
+				this.set({"ErrorMessage": "Trying to create account with Bank failed with: " + textStatus,
+					"Abort": true});
+			}
+		},
+
 		
 		/*
 		 * User should already have an account and wishes to logon

@@ -56,8 +56,8 @@ $(function($) {
 	    },
 	
 		events: {
-			"tap id[cancel]": "cancel",
-			"tap id[agree]": "agree",
+			"tap a[id=cancel]": "cancel",
+			"tap a[id=agree]": "agree",
 	    },
 	    
 	    /*
