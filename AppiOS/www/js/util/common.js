@@ -43,7 +43,7 @@ function UnhandledError (message) {
 
 /*
  * A recursive function to search the javascript object/array looking for the first
- * instance of the provided name
+ * instance of the provided name - use with caution
  */
 function searchObject(obj, name)
 {
