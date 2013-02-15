@@ -13,6 +13,7 @@
             "info" : "info",
 	        "settings" : "settings",
 	        "open" : "open",
+	        "logon" : "logon",
 	    },
 	
 	    initialize:function () {
@@ -52,6 +53,14 @@
 		 */
 		open: function () {
 			var account = new window.Bank.Account({"State": "New"});
+			this.changePage(new window.Bank.AccountView({model: account}));
+		},
+		
+		/*
+		 * Logon page
+		 */
+		logon: function () {
+			var account = new window.Bank.Account({"State": "Logon"});
 			this.changePage(new window.Bank.AccountView({model: account}));
 		},
 

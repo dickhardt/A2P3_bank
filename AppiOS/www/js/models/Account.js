@@ -25,7 +25,7 @@
 			"StatusMessage": '',
 			// State of the account, 
 			// New for request process
-			// Login process
+			// Logon process
 			// Consent for the 2nd step in the request process
 			// Open for agreed to account
 			// Closed 
@@ -52,7 +52,7 @@
 			if (this.get("State") == "New") {
 				this.openAccount();
 			}
-			else if (this.get("State") == "Login") {
+			else if (this.get("State") == "Logon") {
 				this.logon();
 			}
 			else {
@@ -226,16 +226,15 @@
 			url += "/login/app";
 			
 			// Call Bank
-			/*
 			$.ajax({url: url, 
 				type: "POST",
 				dataType: "json",
 				context: this,
 				error: function(url) {
 					return function(jqXHR, textStatus, errorThrown) {
-						this.getAgentRequestForNewAccountError(jqXHR, textStatus, errorThrown, url)
+						this.getAgentRequestError(jqXHR, textStatus, errorThrown, url)
 					}}(url),
-				success: this.getAgentRequestForNewAccountCallback});*/
+				success: this.getAgentRequestCallback});
 		},
 		
 		/*
@@ -259,16 +258,16 @@
 				context: this,
 				error: function(url) {
 					return function(jqXHR, textStatus, errorThrown) {
-						this.getAgentRequestForNewAccountError(jqXHR, textStatus, errorThrown, url)
+						this.getAgentRequestError(jqXHR, textStatus, errorThrown, url)
 					}}(url),
-				success: this.getAgentRequestForNewAccountCallback});
+				success: this.getAgentRequestCallback});
 			
 		},
 		
 		/*
 		 * When bad things happen trying to contact the bank
 		 */
-		getAgentRequestForNewAccountError: function (jqXHR, textStatus, errorThrown, url) {
+		getAgentRequestError: function (jqXHR, textStatus, errorThrown, url) {
 			this.set({"ErrorMessage": "The bank is unavailable at: " + url,
 				"Abort": true});	
 		},
@@ -276,7 +275,7 @@
 		/*
 		 * We should have a agent request in this method
 		 */
-		getAgentRequestForNewAccountCallback: function (data, textStatus, jqXHR) {
+		getAgentRequestCallback: function (data, textStatus, jqXHR) {
 			console.log("bank data = " + JSON.stringify(data));
 			if (textStatus == "success") {
 				if (data.result) {
