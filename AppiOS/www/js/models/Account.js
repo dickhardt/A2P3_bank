@@ -194,6 +194,9 @@
 						"Email": searchObject(data.result, "email"),
 						"SocialInsuranceNumber": searchObject(data.result, "si"),
 						"DI": searchObject(data.result, "di")});
+						
+					// Add to our settings
+					settings.set("DI", searchObject(data.result, "di"));
 					
 				}
 			}

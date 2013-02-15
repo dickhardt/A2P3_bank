@@ -22,6 +22,7 @@
 			BankServerProtocol: '',
 			BankServerHost: '',
 			BankServerPort: '',
+			DI: '',
 		},
 
 		urlRoot: window.Bank.Context.BaseUrl + '/api/settings',
@@ -59,6 +60,7 @@
 				this.set({"BankServerProtocol": "http",
 					"BankServerHost": bankServerHost,
 					"BankServerPort": bankServerPort,
+					"DI": '',
 					});
 	        	
 	        	// store in localstorage
@@ -94,6 +96,10 @@
 		// Save to local stroage
 		save: function () {
 			$.jStorage.set('settings', this);
+		},
+		
+		hasOpenAccount: function () {
+			return this.get("DI").length > 0;
 		},
 	});
 

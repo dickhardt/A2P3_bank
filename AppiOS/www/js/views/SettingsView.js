@@ -56,6 +56,7 @@ $(function($) {
 			this.model.set({"BankServerProtocol": $("#bankServerProtocolList").val(),
 				"BankServerHost": $("#bankServerHostList").val(),
 				"BankServerPort": $("#bankServerPort").val(),
+				"DI": $("#di").val(),
 				})
 			this.model.save();
 			app.navigate("", true);
