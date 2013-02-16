@@ -118,7 +118,7 @@
 			if (textStatus == "success") {
 				if (data.error) {
 					
-					this.set({"ErrorMessage": "Providing bank with IX Token failed with: " + data.error.message,
+					this.set({"ErrorMessage": "Bank could not process this request.  Did you create an account yet?",
 						"Abort": true});
 				
 				}
