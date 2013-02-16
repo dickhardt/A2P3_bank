@@ -117,22 +117,12 @@
 			console.log("bank data = " + JSON.stringify(data));
 			if (textStatus == "success") {
 				if (data.error) {
-					if (data.error.code == "UNKNOWN_USER") {
-						// Unknown user means we are openning an account
-						this.set("State", "Consent");
-						
-						// get profile
-						this.getProfile();
-					}
-					else {
-						this.set({"ErrorMessage": "Providing bank with IX Token failed with: " + data.error.message,
-							"Abort": true});
-					}
-				}
-				else if (data.result.success) {
-					// Success means logon
-					this.set("State", "Open");
 					
+					this.set({"ErrorMessage": "Providing bank with IX Token failed with: " + data.error.message,
+						"Abort": true});
+				
+				}
+				else if (data.result.success) {					
 					// get profile
 					this.getProfile();
 				}
@@ -184,7 +174,7 @@
 				if (data.result) {
 					
 					// Pump the result into our model
-					this.set({"name": searchObject(data.result, "name"),
+					this.set({"Name": searchObject(data.result, "name"),
 						"DateOfBirth": searchObject(data.result, "dob"),
 						"AddressLine1": searchObject(data.result, "address1"),
 						"AddressLine2": searchObject(data.result, "address2"),
@@ -198,6 +188,13 @@
 					// Add to our settings
 					settings.set("DI", searchObject(data.result, "di"));
 					
+					// Don't judge me
+					if (this.get("Email").length < 1) {
+						this.set("State", "Open");
+					}
+					else {
+						this.set("State", "Consent");
+					}
 				}
 			}
 			else {
