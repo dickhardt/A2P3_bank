@@ -247,7 +247,8 @@
 			console.log("bank data = " + JSON.stringify(data));
 			if (textStatus == "success") {
 				// that's enough
-				this.set("State", "Open");
+				this.set({"State": "Open",
+					"StatusMessage": ""});
 			}
 			else {
 				this.set({"ErrorMessage": "Trying to create account with Bank failed with: " + textStatus,
