@@ -189,7 +189,9 @@
 					settings.set("DI", searchObject(data.result, "di"));
 					
 					// Don't judge me
-					if (this.get("Email").length < 1) {
+					if (!this.get("Name") ||
+						this.get("Name").length < 1) {
+							
 						this.set("State", "Open");
 					}
 					else {
