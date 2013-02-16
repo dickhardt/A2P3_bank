@@ -54,7 +54,8 @@ function searchObject(obj, name)
     		return obj[name];
     	}   
         for (k in obj) {
-        	return searchObject(obj[k], name);
+        	var result = searchObject(obj[k], name);
+        	if (result) return result;
         }
     } 
 };
