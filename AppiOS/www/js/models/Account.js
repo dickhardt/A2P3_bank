@@ -69,6 +69,13 @@
 			// Get the request portion
 			var parsedUrl = parseUri(this.get("ResponseSourceUrl"));
 			
+            var error = parsedUrl.queryKey.error;
+                                                if (error &&
+                                                    error == "USER_CANCELLED") {
+                                                this.set("ErrorMessage", "You cancelled the logon.");
+                                                return;
+                                                }
+                                                
 			var token = parsedUrl.queryKey.token;
 			if (!token) {
 				this.set("ErrorMessage", "Missing token parameter in response url.");
@@ -118,7 +125,7 @@
 			if (textStatus == "success") {
 				if (data.error) {
 					
-					this.set({"ErrorMessage": "Bank could not process this request.  Did you create an account yet?",
+					this.set({"ErrorMessage": "Bank could not process this request.  Did you open an account yet?",
 						"Abort": true});
 				
 				}
