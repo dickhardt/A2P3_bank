@@ -47,7 +47,9 @@ $(function($) {
 	        	case "Open":
 	        		this.$("#welcomeContainer").show();
 	        		break;
-	        	case "Closed":
+	        	case "Closed": 	
+			    	// go home
+			    	app.navigate("home", true);
 	        		break;
 	        }
 	        
@@ -60,6 +62,7 @@ $(function($) {
 		events: {
 			"tap a[id=cancel]": "cancel",
 			"tap a[id=agree]": "agree",
+			"tap a[id=close]": "close",
 	    },
 	    
 	    /*
@@ -76,6 +79,15 @@ $(function($) {
 	    agree: function () {
 	    	// tell the model
 	    	this.model.agree();
+	    },
+	    
+	    /*
+	     * User event for Close button
+	     */
+	    close: function () {
+	    	// tell model
+	    	this.model.close();
+
 	    },
 	});
 });

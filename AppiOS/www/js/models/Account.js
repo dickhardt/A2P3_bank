@@ -366,6 +366,59 @@
 			// Invoke Agent!
 			window.location.href = agentUrl;
 		},
+		
+		/*
+		 * Closes the user's bank account
+		 */
+		close: function () {
+			this.set("StatusMessage", "Calling Bank to close account...");
+			
+			// Get base URL
+			var url = settings.getBankURL();
+			
+			// Add on endpoint
+			url += "/close";
+			
+			// Call Bank
+			$.ajax({url: url, 
+				type: "POST",
+				dataType: "json",
+				context: this,
+				error: function(url) {
+					return function(jqXHR, textStatus, errorThrown) {
+						this.closeError(jqXHR, textStatus, errorThrown, url)
+					}}(url),
+				success: this.closeSuccess});
+		},
+		
+		/*
+		 * When bad things happen trying close the account
+		 */
+		closeError: function (jqXHR, textStatus, errorThrown, url) {
+			this.set({"ErrorMessage": "The bank is unavailable at: " + url,
+				"Abort": true});	
+		},
+		
+		/*
+		 * Closing account callback
+		 */
+		closeSuccess: function (data, textStatus, jqXHR) {
+			console.log("bank data = " + JSON.stringify(data));
+			if (textStatus == "success") {
+				if (data.result.success) {
+					this.set("State", "Closed");
+				}
+				else {
+					this.set({"ErrorMessage": "Closing account failed with: " + data.error.message,
+						"Abort": true});
+				}
+			}
+			else {
+				this.set({"ErrorMessage": "Closing account failed with: " + textStatus,
+					"Abort": true});
+			}
+		},
+		
 	});
 
 })();
