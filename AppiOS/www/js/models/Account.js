@@ -381,7 +381,7 @@
 			
 			// Call Bank
 			$.ajax({url: url, 
-				type: "POST",
+				type: "GET",
 				dataType: "json",
 				context: this,
 				error: function(url) {
