@@ -23,16 +23,18 @@ $(function($) {
 	        this.$("#welcomeContainer").hide();
 	        
 	        // Do messages
+            var error = this.model.get("ErrorMessage");
+            if (error) {
+                this.$("#messageBar").text(error);
+                this.$("#messageBar").show();
+                this.model.set("StatusMessage", "");
+            }
 	        var status = this.model.get("StatusMessage");
 	        if (status) {
 	        	this.$("#loadingBar").text(status);
 	        	this.$("#loadingBar").show();
 	        }
-	        var error = this.model.get("ErrorMessage");
-	        if (error) {
-	        	this.$("#messageBar").text(error);
-	        	this.$("#messageBar").show();
-	        }
+
 	        
 	        // Show hide containers based on model state
 	        var state = this.model.get("State");
@@ -65,7 +67,7 @@ $(function($) {
 	     */
 	    cancel: function () {
 	    	// go home
-	    	app.navigate("", true);
+	    	app.navigate("home", true);
 	    },
 	    
 	    /*
