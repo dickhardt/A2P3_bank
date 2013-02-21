@@ -377,7 +377,7 @@
 			var url = settings.getBankURL();
 			
 			// Add on endpoint
-			url += "/close";
+			url += "/close?json=true";
 			
 			// Call Bank
 			$.ajax({url: url, 
